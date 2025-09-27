@@ -1,0 +1,50 @@
+
+###删除学院
+POST http://localhost:8080/api/admin/deletecollege/1421292569574539264
+Content-Type: application/json
+
+
+###添加学院
+POST http://localhost:8080/api/admin/addcollege
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoieXhwNHIiLCJ1aWQiOiIxNDIxMjkyMTI1Mjc2MTEwODQ4IiwiaWF0IjoxNzU4OTM1MDExLCJleHAiOjE3NTkwMjE0MTF9.LBGtZosLAdJsRULVQyizcpcISjKQ_9E2fsErXCM2Az8
+Content-Type: application/json
+
+{
+"collegeName": "林学院"
+}
+
+###更新学院
+POST http://localhost:8080/api/admin/updatecollege
+Content-Type: application/json
+
+{
+  "collegeName": "计算机与控制工程学院1",
+  "id": "1421292569574539264"
+}
+
+
+###添加学院管理员
+POST http://localhost:8080/api/admin/addcollegeadmin
+Content-Type: application/json
+token: {{token}}
+
+{
+  "account": "admin1",
+  "password": "admin2",
+  "collegeId": "1421292569574539264"
+}
+
+
+###删除学院管理员
+POST http://localhost:8080/api/admin/deletecollegeadmin/1421295925495889920
+Content-Type: application/json
+token: {{token}}
+
+###重置学员管理员密码
+POST http://localhost:8080/api/admin/resetcollegeadminpassword/admin1
+Content-Type: application/json
+token: {{token}}
+
+
+
+

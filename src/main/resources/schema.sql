@@ -1,13 +1,13 @@
-drop table if exists `user`;
 create table if not exists `user`
 (
     id              char(19) not null primary key comment '用户id',
     account        varchar(50)  not null unique comment '账号',
     password        varchar(65) not null comment '密码',
+    name        varchar(50)   null comment '姓名',
     phone           varchar(20)  null comment '电话',
     email           varchar(100) null comment '邮箱',
     college_id      char(19)        null comment '学院id',
-    role            varchar(10)       null comment '角色(0:学生,1:教师,2:管理员)',
+    role            varchar(10)     not null  null comment '角色(0:学生,1:教师,2:管理员)',
     student_number  varchar(50)  null comment '学号(学生角色时非空)',
     teacher_number  varchar(50)  null comment '工号(教师/管理员角色时非空)',
     category_id     char(19)       null comment '学生所属大类id',
