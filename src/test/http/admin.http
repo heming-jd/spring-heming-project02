@@ -1,11 +1,11 @@
 
 ###删除学院
-POST http://localhost:8080/api/admin/deletecollege/1421292569574539264
+DELETE http://localhost:8080/api/admin/college/1421292569574539264
 Content-Type: application/json
 
 
 ###添加学院
-POST http://localhost:8080/api/admin/addcollege
+POST http://localhost:8080/api/admin/college
 token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoieXhwNHIiLCJ1aWQiOiIxNDIxMjkyMTI1Mjc2MTEwODQ4IiwiaWF0IjoxNzU4OTM1MDExLCJleHAiOjE3NTkwMjE0MTF9.LBGtZosLAdJsRULVQyizcpcISjKQ_9E2fsErXCM2Az8
 Content-Type: application/json
 
@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ###更新学院
-POST http://localhost:8080/api/admin/updatecollege
+PUT http://localhost:8080/api/admin/college
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 
 ###添加学院管理员
-POST http://localhost:8080/api/admin/addcollegeadmin
+POST http://localhost:8080/api/admin/collegeadmin
 Content-Type: application/json
 token: {{token}}
 
@@ -36,12 +36,12 @@ token: {{token}}
 
 
 ###删除学院管理员
-POST http://localhost:8080/api/admin/deletecollegeadmin/1421295925495889920
+DELETE http://localhost:8080/api/admin/collegeadmin/1421295925495889920
 Content-Type: application/json
 token: {{token}}
 
 ###重置学员管理员密码
-POST http://localhost:8080/api/admin/resetcollegeadminpassword/admin1
+PUT http://localhost:8080/api/admin/resetcollegeadminpassword/admin1
 Content-Type: application/json
 token: {{token}}
 

@@ -1,0 +1,39 @@
+
+
+###查询学院下学生
+GET http://localhost:8080/api/teacher/students
+token: {{token}}
+
+
+
+###查询大类下学生
+GET http://localhost:8080/api/teacher/students/1421360334259912704
+token: {{token}}
+
+
+###根据学生id查提交
+GET http://localhost:8080/api/teacher/applications/1421292255026905088
+token: {{token}}
+
+
+
+
+###根据申请id查文件
+GET http://localhost:8080/api/teacher/files/1424601791179554816
+token: {{token}}
+
+
+###增加评价
+POST http://localhost:8080/api/teacher/review
+Content-Type: application/json
+token: {{token}}
+
+{
+  "applicationId": "1424601791179554816",
+  "teacherId": "1421292259858743296",
+  "status": "sfdf"
+}
+
+###查评价
+GET http://localhost:8080/api/teacher/review/1424601791179554816
+token: {{token}}

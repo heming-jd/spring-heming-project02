@@ -19,6 +19,7 @@ public class ApplicationFile {
     @CreatedBy
     private String id;
     private String studentId;
+    private String applicationId;
     private String filePath;
     @ReadOnlyProperty
     private LocalDateTime createTime;

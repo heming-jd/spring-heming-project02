@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Application {
+    public static final String STATUS_COMMIT = "wedwa";;
+    public static final String STATUS_SUCCESS = "sfdf";
     @Id
     @CreatedBy
     private String id;

@@ -1,3 +1,4 @@
+
 create table if not exists `user`
 (
     id              char(19) not null primary key comment '用户id',
@@ -42,6 +43,7 @@ create table if not exists `major`
     id           char(19) not null primary key comment '专业唯一标识',
     major_name   varchar(100) not null comment '专业名称',
     college_id   char(19) not null comment '所属学院ID',
+    category_id  char(19) not null comment '所属大类ID',
     create_time  datetime not null default current_timestamp comment '创建时间',
 
     index(major_name) comment '专业名称索引',
@@ -66,7 +68,7 @@ create table if not exists `node`
     node_name    varchar(200) not null comment '项目节点名称',
     parent_id char(19) NULL COMMENT '父类别ID',
     description  text comment '项目描述',
-    max_score    decimal(10,2) default 0.00 comment '节点最大分数',
+    max_score    decimal(5,2) default 0.00 comment '节点最大分数',
     limit_count  int default 0 comment '限项个数(0表示不限项)',
     create_time  datetime not null default current_timestamp comment '创建时间',
 
@@ -81,7 +83,6 @@ create table if not exists `node_closure`
     descendant_id char(19) not null comment '后代节点ID',
     level         int not null comment '层级差',
     create_time   datetime not null default current_timestamp comment '创建时间',
-
     primary key (ancestor_id, descendant_id) comment '主键(祖先ID, 后代ID)',
     index(ancestor_id) comment '祖先节点ID索引',
     index(descendant_id) comment '后代节点ID索引',
@@ -107,7 +108,7 @@ create table if not exists `application`
     student_id          char(19) not null comment '申请学生ID',
     leaf_node_id        char(19) not null comment '项目叶子节点ID',
     project_description text comment '申请项目描述',
-    status              varchar(10) not null comment '申请状态(0:待审核,1:审核中,2:审核通过,3:审核不通过,4:已打回)',
+    status              varchar(10) not null comment '申请状态',
     apply_time          datetime not null default current_timestamp comment '申请时间',
     update_time         datetime not null default current_timestamp on update current_timestamp comment '更新时间',
 
@@ -122,8 +123,8 @@ create table if not exists `review`
     id             char(19) not null primary key comment '审核记录唯一标识',
     application_id char(19) not null comment '申请记录ID',
     teacher_id     char(19) not null comment '审核教师ID',
-    status         varchar(10) not null default 0 comment '审核状态(0:待审核,1:通过,2:不通过)',
     score          decimal(10,2) default 0.00 comment '审核分数',
+    status              varchar(10) not null comment '申请状态',
     reject_reason  text comment '打回理由',
     review_time    datetime not null default current_timestamp comment '审核时间',
 
@@ -137,7 +138,7 @@ create table if not exists `application_file`
 (
     id           char(19) not null primary key comment '文件记录唯一标识',
     student_id   char(19) not null comment '学生ID',
-
+    application_id   char(19) not null comment '申请ID',
     file_path    varchar(500) not null comment '文件存储路径',
     create_time  datetime not null default current_timestamp comment '创建时间',
     update_time  datetime not null default current_timestamp on update current_timestamp comment '更新时间',

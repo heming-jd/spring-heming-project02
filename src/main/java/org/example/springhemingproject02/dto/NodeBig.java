@@ -1,4 +1,4 @@
-package org.example.springhemingproject02.dox;
+package org.example.springhemingproject02.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,19 +8,20 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Major {
-    @Id
-    @CreatedBy
+public class NodeBig {
     private String id;
-    private String majorName;
-    private String collegeId;
     private String categoryId;
-    @ReadOnlyProperty
-    private LocalDateTime createTime;
+    private String nodeName;
+    private String parentId;
+    private String description;
+    private BigDecimal maxScore;
+    private Integer limitCount;
+    private Integer level;
 }

@@ -22,7 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/api/admin/**");
         registry.addInterceptor(adminCollegeInterceptor)
-                .addPathPatterns("/api/admincolege/**");
+                .addPathPatterns("/api/admincollege/**");
         registry.addInterceptor(teacherInterceptor)
                 .addPathPatterns("/api/teacher/**");
         registry.addInterceptor(studentInterceptor)

@@ -1,0 +1,83 @@
+
+
+###添加新大类
+POST http://localhost:8080/api/admincollege/category
+Content-Type: application/json
+token: {{token}}
+
+{
+  "categoryName": "通信类",
+  "collegeId": "1421292569574539264",
+  "scorePercentage":"0.5"
+}
+
+
+
+
+###添加新节点1
+POST http://localhost:8080/api/admincollege/node
+Content-Type: application/json
+token: {{token}}
+
+{
+  "categoryId": "1421292569574539264",
+  "nodeName": "学术项目",
+  "description": "1",
+  "maxScore": "60.00",
+  "limitCount": "2"
+}
+
+###添加新节点2
+POST http://localhost:8080/api/admincollege/node
+Content-Type: application/json
+token: {{token}}
+
+{
+  "categoryId": "1421292569574539264",
+  "nodeName": "竞赛",
+  "parentId": "1423887924468154368",
+  "description": "2",
+  "maxScore": "60.00",
+  "limitCount": "2"
+}
+
+
+###添加新节点3
+POST http://localhost:8080/api/admincollege/node
+Content-Type: application/json
+token: {{token}}
+
+{
+  "categoryId": "1421292569574539264",
+  "nodeName": "竞赛2",
+  "parentId": "1423887924468154368",
+  "description": "2",
+  "maxScore": "60.00",
+  "limitCount": "2"
+}
+
+###添加新节点4
+POST http://localhost:8080/api/admincollege/node
+Content-Type: application/json
+token: {{token}}
+
+{
+  "categoryId": "1421292569574539264",
+  "nodeName": "蓝桥杯",
+  "parentId": "1423888001588822016",
+  "description": "2",
+  "maxScore": "60.00",
+  "limitCount": "2"
+}
+
+
+###查询指定节点全部后代
+GET http://localhost:8080/api/admincollege/nodes/1423887924468154368
+Content-Type: application/json
+token: {{token}}
+
+
+###删除指定节点
+DELETE http://localhost:8080/api/admincollege/node/1423887996056535040
+Content-Type: application/json
+token: {{token}}

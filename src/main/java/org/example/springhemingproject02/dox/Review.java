@@ -16,13 +16,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
+    public static final String STATUS_REJECT = "wedwa";;
+    public static final String STATUS_SUCCESS = "sfdf";
     @Id
     @CreatedBy
     private String id;
     private String applicationId;
     private String teacherId;
-    private String status;
     private BigDecimal score;
+    private String status;
     private String rejectReason;
     @ReadOnlyProperty
     private LocalDateTime reviewTime;

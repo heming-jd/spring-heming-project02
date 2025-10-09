@@ -9,20 +9,38 @@ Content-Type: application/json
 }
 > {% client.global.set("token", response.headers.valueOf("token")); %}
 
+
+###学院管理员登录
+POST http://localhost:8080/api/open/login
+Content-Type: application/json
+
+{
+  "account":"admin1",
+  "password":"admin2"
+}
+> {% client.global.set("token", response.headers.valueOf("token")); %}
+
+
 ###学生注册
 POST http://localhost:8080/api/open/student/register
 Content-Type: application/json
 
 {
-  "account": "2023211486",
-  "password": "Yhm050227",
-  "name": "杨鸿铭",
-  "phone": "18045088469",
-  "email": "18045088469@163.com",
-  "studentNumber": "2023211486",
-  "collegeId": "college_001",
-  "majorId": "major_002",
-  "categoryId": "category_001"
+  "user": {
+    "account": "2023211456",
+    "password": "Yhm050227",
+    "name": "qwe",
+    "phone": "18045088469",
+    "email": "18045088469@163.com",
+    "studentNumber": "2023211486",
+    "collegeId": "1421360334259912704",
+    "majorId": "major_002",
+    "categoryId": "category_001"
+  },
+  "studentScore": {
+    "majorRank": 1,
+    "weightedScore": "80"
+  }
 }
 
 ###老师注册
@@ -39,12 +57,14 @@ Content-Type: application/json
   "collegeId": "college_001"
 }
 
+
+
 ###学生登录
 POST http://localhost:8080/api/open/login
 Content-Type: application/json
 
 {
-  "account": "2023211486",
+  "account": "2023211456",
   "password": "Yhm050227"
 }
 > {% client.global.set("token", response.headers.valueOf("token")); %}
@@ -58,3 +78,14 @@ Content-Type: application/json
   "password": "Yhm050227"
 }
 > {% client.global.set("token", response.headers.valueOf("token")); %}
+###查找全部学院
+GET http://localhost:8080/api/open/colleges
+Content-Type: application/json
+
+###查找学院对应大类
+GET http://localhost:8080/api/open/categories/1421292569574539264
+Content-Type: application/json
+
+###查找全部专业
+GET http://localhost:8080/api/open/majors/1421292569574539264
+Content-Type: application/json

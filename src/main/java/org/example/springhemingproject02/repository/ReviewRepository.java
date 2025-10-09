@@ -1,9 +1,20 @@
 package org.example.springhemingproject02.repository;
 
 import org.example.springhemingproject02.dox.College;
+import org.example.springhemingproject02.dox.Review;
+import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface ReviewRepository extends ListCrudRepository<College, String> {
+public interface ReviewRepository extends ListCrudRepository<Review, String> {
+    Review findByApplicationId(String applicationId);
+
+    void deleteByApplicationId(String applicationId);
+
+    @Query("SELECT r.application_id, r.score FROM review r WHERE r.application_id IN (:applicationIds) AND r.status = 'sfdf'")
+    List<Object[]> findApprovedScoresByApplicationIds(@Param("applicationIds") List<String> applicationIds);
 }

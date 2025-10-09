@@ -1,0 +1,79 @@
+
+###查询分与排名
+GET http://localhost:8080/api/student/score
+Content-Type: application/json
+token: {{token}}
+###查询指定节点全部后代
+GET http://localhost:8080/api/student/firstnodes
+Content-Type: application/json
+token: {{token}}
+
+
+###查询指定节点全部后代
+GET http://localhost:8080/api/student/nodes/1423887924468154368
+Content-Type: application/json
+token: {{token}}
+
+
+
+
+###提交申请
+POST http://localhost:8080/api/student/application
+Content-Type: application/json
+token: {{token}}
+
+{
+  "categoryId": "1421360334259912704",
+  "projectDescription": "申请蓝桥杯",
+  "leafNodeId": "1423888232355233792"
+}
+
+###提交申请文件
+POST http://localhost:8080/api/student/applicationfiles
+Content-Type: application/json
+token: {{token}}
+
+{
+  "applicationId": "1424601791179554816",
+  "filePath": "http://localhost:8080/api/file/download/1423888232355233792"
+}
+
+
+###更新申请
+PUT http://localhost:8080/api/student/application
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1424373976358223872",
+  "categoryId": "1421360334259912704",
+  "projectDescription": "申请蓝桥杯更新",
+  "leafNodeId": "1423888232355233792"
+}
+
+###删除申请
+DELETE http://localhost:8080/api/student/application/1424373976358223872
+Content-Type: application/json
+token: {{token}}
+###查询全部申请
+GET http://localhost:8080/api/student/applications
+Content-Type: application/json
+token: {{token}}
+
+###查询某个申请
+GET http://localhost:8080/api/student/application/1424601791179554816
+Content-Type: application/json
+token: {{token}}
+
+
+
+###查询某个申请的文件
+GET http://localhost:8080/api/student/applicationfiles/1424601791179554816
+Content-Type: application/json
+token: {{token}}
+
+
+###查询项目得分
+GET http://localhost:8080/api/student/totalscore
+Content-Type: application/json
+token: {{token}}

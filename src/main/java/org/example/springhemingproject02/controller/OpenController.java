@@ -4,15 +4,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.springhemingproject02.component.JWTComponent;
+import org.example.springhemingproject02.dox.StudentScore;
 import org.example.springhemingproject02.dox.User;
+import org.example.springhemingproject02.dto.StudentRegister;
 import org.example.springhemingproject02.exception.Code;
+import org.example.springhemingproject02.service.CollegeService;
+import org.example.springhemingproject02.service.ScoreService;
 import org.example.springhemingproject02.service.Userservice;
 import org.example.springhemingproject02.vo.ResultVO;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -22,8 +23,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class OpenController {
     private final Userservice userService;
+    private final CollegeService collegeService;
+    private final ScoreService scoreService;
     private final PasswordEncoder encoder;
     private final JWTComponent jwtComponent;
+    //登录 学生老师注册 获取所有学院 获取所有专业 获取所有类别
     @PostMapping("login")
     public ResultVO postLogin(@RequestBody User loginUser, HttpServletResponse response) {
         User u = userService.getUser(loginUser.getAccount());
@@ -36,10 +40,14 @@ public class OpenController {
         return ResultVO.success(u);
     }
     @PostMapping("student/register")
-    public ResultVO postRegisterstudent(@RequestBody User user) {
+    public ResultVO postRegisterstudent(@RequestBody StudentRegister studentRegister) {
+        User user = studentRegister.getUser();
         user.setPassword(encoder.encode(user.getPassword()));
         user.setRole(User.ROLE_USER);
         userService.addUser(user);
+        StudentScore studentScore = studentRegister.getStudentScore();
+        studentScore.setStudentId(user.getId());
+        scoreService.addStudentScore(studentScore);
         return ResultVO.ok();
     }
     @PostMapping("teacher/register")
@@ -49,4 +57,10 @@ public class OpenController {
         userService.addUser(user);
         return ResultVO.ok();
     }
+    @GetMapping("colleges")
+    public ResultVO getAllcolleges() {return ResultVO.success(collegeService.getAllcollege());}
+    @GetMapping("categories/{collegeId}")
+    public ResultVO getCategories(@PathVariable String collegeId) {return collegeService.getCategories(collegeId);}
+    @GetMapping("majors/{categoryId}")
+    public ResultVO getmajors(@PathVariable String categoryId) {return collegeService.getmajors(categoryId);}
 }
