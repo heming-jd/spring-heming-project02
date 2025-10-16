@@ -1,4 +1,4 @@
-package org.example.springhemingproject02.component;
+package org.example.springhemingproject02.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

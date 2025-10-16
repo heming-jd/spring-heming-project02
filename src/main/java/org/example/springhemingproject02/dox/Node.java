@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,10 +19,10 @@ import java.time.LocalDateTime;
 public class Node {
     @Id
     @CreatedBy
-    private String id;
-    private String categoryId;
+    private Long id;
+    private Long categoryId;
     private String nodeName;
-    private String parentId;
+    private Long parentId;
     private String description;
     private BigDecimal maxScore;
     private Integer limitCount;

@@ -31,7 +31,7 @@ public class CollegeService {
         return ResultVO.ok();
     }
     @Transactional
-    public ResultVO deletecollege(String id){
+    public ResultVO deletecollege(Long id){
         collegeRepository.deleteById(id);
         return ResultVO.ok();
     }
@@ -46,7 +46,7 @@ public class CollegeService {
         return ResultVO.ok();
     }
     @Transactional
-    public ResultVO deletecollegeadmin(String id){
+    public ResultVO deletecollegeadmin(Long id){
         userRepository.deleteById(id);
         return ResultVO.ok();
     }
@@ -68,7 +68,7 @@ public class CollegeService {
         return ResultVO.ok();
     }
 
-    public ResultVO getCategories(String collegeId) {
+    public ResultVO getCategories(Long collegeId) {
         List<Category> categories = categoryRepository.findBycollegeId(collegeId);
         return ResultVO.builder()
                 .code(200)
@@ -76,8 +76,8 @@ public class CollegeService {
                 .build();
     }
 
-    public ResultVO getmajors(String categoryId) {
-        List<Major> majors = majorRepository.findAllById(categoryId);
+    public ResultVO getmajors(Long categoryId) {
+        List<Major> majors = majorRepository.findAllBycategoryId(categoryId);
         return ResultVO.builder()
                 .code(200)
                 .data(Map.of("majors", majors))
@@ -89,7 +89,7 @@ public class CollegeService {
         return ResultVO.ok();
     }
 
-    public ResultVO deletemajor(String id) {
+    public ResultVO deletemajor(Long id) {
         majorRepository.deleteById(id);
         return ResultVO.ok();
     }

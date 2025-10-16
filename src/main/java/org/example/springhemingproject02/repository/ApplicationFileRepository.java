@@ -1,11 +1,9 @@
 package org.example.springhemingproject02.repository;
 
 import org.example.springhemingproject02.dox.ApplicationFile;
-import org.example.springhemingproject02.dox.ApplicationFile;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +14,12 @@ public interface ApplicationFileRepository extends ListCrudRepository<Applicatio
     @Transactional
     @Modifying
     @Query(value = "delete from application_file where application_id = :id")
-    void deletejoin(String id);
+    void deletejoin(Long id);
 
-    List<ApplicationFile> findByApplicationId(String id);
+    List<ApplicationFile> findByApplicationId(Long id);
 
 
+    ApplicationFile findById(Long id);
+
+    void deleteById(Long id);
 }

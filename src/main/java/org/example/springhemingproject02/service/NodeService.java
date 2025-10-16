@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -28,23 +27,23 @@ public class NodeService {
         return ResultVO.ok();
     }
     @Transactional
-    public ResultVO getNodes(@Param("id") String id){
+    public ResultVO getNodes(@Param("id") Long id){
         List<NodeBig> nodebigs = nodeRepository.findNodeBigsById(id);
         return ResultVO.builder().data(Map.of("nodebigs",nodebigs)).build();
     }
 
-    public ResultVO deleteNode(String id) {
+    public ResultVO deleteNode(Long id) {
         nodeClosureRepository.deleteNodeRelations(id);
         nodeRepository.deleteNode(id);
         return ResultVO.ok();
     }
 
-    public Optional<Node> findById(String id) {
+    public Node findById(Long id) {
         return nodeRepository.findById(id);
     }
 
-    public ResultVO getfirstNodes() {
-        List<Node> nodes = nodeRepository.findFirstNodes();
+    public ResultVO getfirstNodes(Long id) {
+        List<Node> nodes = nodeRepository.findFirstNodes(id);
         return ResultVO.builder().data(Map.of("nodes",nodes)).build();
     }
 

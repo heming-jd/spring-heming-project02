@@ -14,9 +14,9 @@ public class NodesRowMapper implements RowMapper<NodeBig> {
     public NodeBig mapRow(ResultSet rs, int rowNum) throws SQLException {
         return NodeBig.builder()
                 .nodeName(rs.getString("n.node_name"))
-                .categoryId(rs.getString("category_id"))
+                .categoryId(rs.getLong("category_id"))
                 .description(rs.getString("n.description"))
-                .id(rs.getString("n.id"))
+                .id(rs.getLong("n.id"))
                 .level(rs.getInt("level"))
                 .limitCount(rs.getInt("limit_count"))
                 .maxScore(rs.getBigDecimal("max_score"))

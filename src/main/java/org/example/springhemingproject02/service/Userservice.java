@@ -42,14 +42,11 @@ public class Userservice {
     }
 
     @Transactional
-    public User getUserbyId(String uid) {
-        return userRepository.findById(uid).orElseThrow(() -> XException.builder()
-                .codeN(Code.ERROR)
-                .message("用户不存在")
-                .build());
+    public User getUserbyId(Long uid) {
+        return userRepository.findById(uid);
     }
     @Transactional
-    public ResultVO getStudentsByTeacher(String collegeId) {
+    public ResultVO getStudentsByTeacher(Long collegeId) {
         List<User> students = userRepository.findStudentByCollegeId(collegeId);
         return ResultVO.builder()
                 .code(200)
@@ -57,7 +54,7 @@ public class Userservice {
                 .build();
     }
     @Transactional
-    public ResultVO getStudentsBycategory(String categoryId) {
+    public ResultVO getStudentsBycategory(Long categoryId) {
         List<StudentBig> students = userRepository.findStudentByCategoryId(categoryId);
         return ResultVO.builder()
                 .code(200)

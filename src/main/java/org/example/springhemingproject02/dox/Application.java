@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,9 +20,9 @@ public class Application {
     public static final String STATUS_SUCCESS = "sfdf";
     @Id
     @CreatedBy
-    private String id;
-    private String studentId;
-    private String leafNodeId;
+    private Long id;
+    private Long studentId;
+    private Long leafNodeId;
     private String projectDescription;
     private String status;
     @ReadOnlyProperty

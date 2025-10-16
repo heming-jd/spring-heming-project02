@@ -1,4 +1,4 @@
-package org.example.springhemingproject02.component;
+package org.example.springhemingproject02.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +15,9 @@ import java.util.Optional;
 @EnableJdbcAuditing
 public class SnowflakeGenerator {
     @Bean
-    AuditorAware<String> auditorAware() {
+    AuditorAware<Long> auditorAware() {
         Snowflake s = new Snowflake();
-        return () -> Optional.of(String.valueOf(s.nextId()));
+        return () -> Optional.of(s.nextId());
     }
 
     private static class Snowflake {

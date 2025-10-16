@@ -28,17 +28,17 @@ public class TeacherController {
     public ResultVO getStudentsByTeacher(HttpServletRequest request){
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         User user = userService.getUserbyId(uid);
-        String collegeId = user.getCollegeId();
+        Long collegeId = user.getCollegeId();
         return ResultVO.success(userService.getStudentsByTeacher(collegeId));
     }
     @GetMapping("students/{categoryId}")
-    public ResultVO getstudentsbycategory(@PathVariable String categoryId){
+    public ResultVO getstudentsbycategory(@PathVariable Long categoryId){
         return userService.getStudentsBycategory(categoryId);
     }
     @GetMapping("files/{applicationId}")
-    public ResultVO getfilebyapplicationid(@PathVariable String applicationId){
+    public ResultVO getfilebyapplicationid(@PathVariable Long applicationId){
         return applicationService.getfilebyapplicationid(applicationId);
     }
     @PostMapping("review")
@@ -46,11 +46,11 @@ public class TeacherController {
         return applicationService.addReview(review);
     }
     @GetMapping("review/{applicationId}")
-    public ResultVO getReviewByApplicationId(@PathVariable String applicationId){
+    public ResultVO getReviewByApplicationId(@PathVariable Long applicationId){
         return applicationService.getReviewByApplicationId(applicationId);
     }
     @GetMapping("applications/{studentId}")
-    public ResultVO getapplicationsbystudentId(@PathVariable String id){
+    public ResultVO getapplicationsbystudentId(@PathVariable Long id){
         return applicationService.getapplicationsbystudentId(id);
     }
 

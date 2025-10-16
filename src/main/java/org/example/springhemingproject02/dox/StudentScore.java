@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +19,8 @@ import java.time.LocalDateTime;
 public class StudentScore {
     @Id
     @CreatedBy
-    private String id;
-    private String studentId;
+    private Long id;
+    private Long studentId;
     private BigDecimal weightedScore;
     private Integer majorRank;
     @ReadOnlyProperty

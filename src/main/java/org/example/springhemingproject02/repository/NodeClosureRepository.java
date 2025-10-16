@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface NodeClosureRepository extends ListCrudRepository<NodeClosure, String> {
@@ -21,19 +20,19 @@ public interface NodeClosureRepository extends ListCrudRepository<NodeClosure, S
             "WHERE descendant_id = :parentId " +
             "UNION ALL " +
             "SELECT :descendantId, :descendantId, 0, NOW()")
-    void addNodeClosure(String parentId,String descendantId);
+    void addNodeClosure(Long parentId, Long descendantId);
 
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM node_closure WHERE ancestor_id = :id OR descendant_id = :id")
-    void deleteNodeRelations(@Param("id") String id);
+    void deleteNodeRelations(@Param("id") Long id);
 
     @Query("SELECT nc.ancestor_id FROM node_closure nc " +
             "JOIN node n ON nc.ancestor_id = n.id " +
             "WHERE nc.descendant_id = :descendantId AND n.max_score > 0 " +
             "ORDER BY nc.level ASC LIMIT 1")
-    String findNearestMaxScoreAncestor(@Param("descendantId") String descendantId);
+    String findNearestMaxScoreAncestor(@Param("descendantId") Long descendantId);
 
     @Query("SELECT descendant_id FROM node_closure WHERE ancestor_id = :ancestorId")
-    List<String> findDescendantIdsByAncestorId(@Param("ancestorId") String ancestorId);
+    List<Long> findDescendantIdsByAncestorId(@Param("ancestorId") Long ancestorId);
 }

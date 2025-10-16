@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,10 +18,10 @@ import java.time.LocalDateTime;
 public class Major {
     @Id
     @CreatedBy
-    private String id;
+    private Long id;
     private String majorName;
-    private String collegeId;
-    private String categoryId;
+    private Long collegeId;
+    private Long categoryId;
     @ReadOnlyProperty
     private LocalDateTime createTime;
 }

@@ -10,5 +10,7 @@ import java.util.List;
 
 @Repository
 public interface MajorRepository extends ListCrudRepository<Major, String> {
-    List<Major> findAllById(String categoryId);
+    List<Major> findAllBycategoryId(Long categoryId);
+
+    void deleteById(Long id);
 }

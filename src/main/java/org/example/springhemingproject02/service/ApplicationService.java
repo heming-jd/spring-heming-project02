@@ -27,7 +27,7 @@ public class ApplicationService {
     private final NodeRepository nodeRepository;
     public ResultVO addApplication(Application application) {
         // 1. 检查节点限项
-        Node leafNode = nodeRepository.findById(application.getLeafNodeId()).orElse(null);
+        Node leafNode = nodeRepository.findById(application.getLeafNodeId());
         if (leafNode == null) {
             return ResultVO.error(400, "节点不存在");
         }
@@ -56,22 +56,22 @@ public class ApplicationService {
         return ResultVO.ok();
     }
 
-    public Application getApplicationById(String id) {
-        return applicationRepository.findById(id).orElse(null);
+    public Application getApplicationById(Long id) {
+        return applicationRepository.findById(id);
     }
 
-    public ResultVO deleteApplication(String id) {
+    public ResultVO deleteApplication(Long id) {
         //删除时应先删掉附属文件
         applicationFileRepository.deletejoin(id);
         applicationRepository.deleteById(id);
         return ResultVO.ok();
     }
 
-    public ApplicationFile getApplicationFileById(String id) {
-        return applicationFileRepository.findById(id).orElse(null);
+    public ApplicationFile getApplicationFileById(Long id) {
+        return applicationFileRepository.findById(id);
     }
 
-    public ResultVO deleteApplicationFile(String id) {
+    public ResultVO deleteApplicationFile(Long id) {
         applicationFileRepository.deleteById(id);
         return ResultVO.ok();
     }
@@ -92,7 +92,7 @@ public class ApplicationService {
             reviewRepository.save(review);
             return ResultVO.ok();
         }
-        Application application = applicationRepository.findById(review.getApplicationId()).orElse(null);
+        Application application = applicationRepository.findById(review.getApplicationId());
         if(application == null) return ResultVO.error(Code.BAD_REQUEST);
         application.setStatus(Application.STATUS_SUCCESS);
         applicationRepository.save(application);
@@ -100,7 +100,7 @@ public class ApplicationService {
         return ResultVO.ok();
     }
 
-    public ResultVO deleteReview(String id) {
+    public ResultVO deleteReview(Long id) {
         reviewRepository.deleteById(id);
         return ResultVO.ok();
     }
@@ -110,11 +110,11 @@ public class ApplicationService {
         return ResultVO.ok();
     }
 
-    public ResultVO getapplication(String id) {
-        return ResultVO.success(applicationRepository.findById(id).orElse(null));
+    public ResultVO getapplication(Long id) {
+        return ResultVO.success(applicationRepository.findById(id));
     }
 
-    public ResultVO getapplicationfilesbyapplicationId(String id) {
+    public ResultVO getapplicationfilesbyapplicationId(Long id) {
         List<ApplicationFile> appfs = applicationFileRepository.findByApplicationId(id);
         return ResultVO.builder()
                 .code(200)
@@ -129,34 +129,35 @@ public class ApplicationService {
                 .build();
     }
 
-    public ResultVO getReviewByApplicationId(String applicationId) {
+    public ResultVO getReviewByApplicationId(Long applicationId) {
         return ResultVO.success(reviewRepository.findByApplicationId(applicationId));
     }
 
-    public ResultVO getapplicationsbystudentId(String id) {
+    public ResultVO getapplicationsbystudentId(Long id) {
         return ResultVO.builder()
                 .code(200)
                 .data(Map.of("apps", applicationRepository.findByStudentId(id)))
                 .build();
     }
 
-    public ResultVO getapplicationstatusbystudentId(String id) {
+    public ResultVO getapplicationstatusbystudentId(Long id) {
         return ResultVO.builder()
                 .code(200)
                 .data(Map.of("commit", applicationRepository.countStatus1ByStudentId(id),"success", applicationRepository.countStatus2ByStudentId(id)))
                 .build();
     }
 
-    public ResultVO getfilebyapplicationid(String applicationId) {
+    public ResultVO getfilebyapplicationid(Long applicationId) {
         return ResultVO.builder()
                 .code(200)
                 .data(Map.of("appfs", applicationFileRepository.findByApplicationId(applicationId)))
                 .build();
     }
 
-    public ResultVO deleteReviewByApplicationId(String applicationId) {
+    public ResultVO deleteReviewByApplicationId(Long applicationId) {
         reviewRepository.deleteByApplicationId(applicationId);
         return ResultVO.ok();
     }
+
 
 }

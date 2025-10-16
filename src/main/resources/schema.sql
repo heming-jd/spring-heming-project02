@@ -1,18 +1,19 @@
 
+
 create table if not exists `user`
 (
-    id              char(19) not null primary key comment '用户id',
+    id              bigint not null primary key comment '用户id',
     account        varchar(50)  not null unique comment '账号',
     password        varchar(65) not null comment '密码',
     name        varchar(50)   null comment '姓名',
     phone           varchar(20)  null comment '电话',
     email           varchar(100) null comment '邮箱',
-    college_id      char(19)        null comment '学院id',
+    college_id      bigint        null comment '学院id',
     role            varchar(10)     not null  null comment '角色(0:学生,1:教师,2:管理员)',
     student_number  varchar(50)  null comment '学号(学生角色时非空)',
     teacher_number  varchar(50)  null comment '工号(教师/管理员角色时非空)',
-    category_id     char(19)       null comment '学生所属大类id',
-    major_id        char(19)       null comment '学生所属专业id',
+    category_id     bigint       null comment '学生所属大类id',
+    major_id        bigint       null comment '学生所属专业id',
     created_time    datetime     not null default current_timestamp comment '创建时间',
     updated_time    datetime     not null default current_timestamp on update current_timestamp comment '更新时间',
 
@@ -22,7 +23,7 @@ create table if not exists `user`
 
 create table if not exists `college`
 (
-    id            char(19) not null primary key comment '学院唯一标识',
+    id            bigint not null primary key comment '学院唯一标识',
     college_name  varchar(100) not null comment '学院名称',
 
     index(college_name) comment '学院名称索引'
@@ -30,9 +31,9 @@ create table if not exists `college`
 
 create table if not exists `category`
 (
-    id               char(19) not null primary key comment '大类唯一标识',
+    id               bigint not null primary key comment '大类唯一标识',
     category_name    varchar(100) not null comment '大类名称',
-    college_id       char(19) not null comment '所属学院ID',
+    college_id       bigint not null comment '所属学院ID',
     score_percentage decimal(5,2) default 100.00 comment '推免分数占比',
 
     index(college_id) comment '学院ID索引'
@@ -40,10 +41,10 @@ create table if not exists `category`
 
 create table if not exists `major`
 (
-    id           char(19) not null primary key comment '专业唯一标识',
+    id           bigint not null primary key comment '专业唯一标识',
     major_name   varchar(100) not null comment '专业名称',
-    college_id   char(19) not null comment '所属学院ID',
-    category_id  char(19) not null comment '所属大类ID',
+    college_id   bigint not null comment '所属学院ID',
+    category_id  bigint not null comment '所属大类ID',
     create_time  datetime not null default current_timestamp comment '创建时间',
 
     index(major_name) comment '专业名称索引',
@@ -52,9 +53,9 @@ create table if not exists `major`
 
 create table if not exists `teacher_category`
 (
-    id          char(19) not null primary key comment '关联记录唯一标识',
-    category_id char(19) not null comment '大类ID',
-    teacher_id  char(19) not null comment '教师ID',
+    id          bigint not null primary key comment '关联记录唯一标识',
+    category_id bigint not null comment '大类ID',
+    teacher_id  bigint not null comment '教师ID',
     create_time datetime not null default current_timestamp comment '创建时间',
 
     index(category_id) comment '大类ID索引',
@@ -64,9 +65,9 @@ create table if not exists `teacher_category`
 create table if not exists `node`
 (
     id           char(19) not null primary key comment '节点唯一标识',
-    category_id  char(19) not null comment '所属大类ID',
+    category_id  bigint not null comment '所属大类ID',
     node_name    varchar(200) not null comment '项目节点名称',
-    parent_id char(19) NULL COMMENT '父类别ID',
+    parent_id bigint NULL COMMENT '父类别ID',
     description  text comment '项目描述',
     max_score    decimal(5,2) default 0.00 comment '节点最大分数',
     limit_count  int default 0 comment '限项个数(0表示不限项)',
@@ -79,8 +80,8 @@ create table if not exists `node`
 
 create table if not exists `node_closure`
 (
-    ancestor_id   char(19) not null comment '祖先节点ID',
-    descendant_id char(19) not null comment '后代节点ID',
+    ancestor_id   bigint not null comment '祖先节点ID',
+    descendant_id bigint not null comment '后代节点ID',
     level         int not null comment '层级差',
     create_time   datetime not null default current_timestamp comment '创建时间',
     primary key (ancestor_id, descendant_id) comment '主键(祖先ID, 后代ID)',
@@ -91,8 +92,8 @@ create table if not exists `node_closure`
 
 create table if not exists `student_score`
 (
-    id            char(19) not null primary key comment '成绩记录唯一标识',
-    student_id    char(19) not null comment '学生ID',
+    id            bigint not null primary key comment '成绩记录唯一标识',
+    student_id    bigint not null comment '学生ID',
     weighted_score decimal(5,2) not null comment '加权成绩',
     major_rank    int not null comment '专业排名',
     create_time   datetime not null default current_timestamp comment '创建时间',
@@ -104,9 +105,9 @@ create table if not exists `student_score`
 
 create table if not exists `application`
 (
-    id                  char(19) not null primary key comment '申请记录唯一标识',
-    student_id          char(19) not null comment '申请学生ID',
-    leaf_node_id        char(19) not null comment '项目叶子节点ID',
+    id                  bigint not null primary key comment '申请记录唯一标识',
+    student_id          bigint not null comment '申请学生ID',
+    leaf_node_id        bigint not null comment '项目叶子节点ID',
     project_description text comment '申请项目描述',
     status              varchar(10) not null comment '申请状态',
     apply_time          datetime not null default current_timestamp comment '申请时间',
@@ -120,9 +121,9 @@ create table if not exists `application`
 
 create table if not exists `review`
 (
-    id             char(19) not null primary key comment '审核记录唯一标识',
-    application_id char(19) not null comment '申请记录ID',
-    teacher_id     char(19) not null comment '审核教师ID',
+    id             bigint not null primary key comment '审核记录唯一标识',
+    application_id bigint not null comment '申请记录ID',
+    teacher_id     bigint not null comment '审核教师ID',
     score          decimal(10,2) default 0.00 comment '审核分数',
     status              varchar(10) not null comment '申请状态',
     reject_reason  text comment '打回理由',
@@ -136,9 +137,9 @@ create table if not exists `review`
 
 create table if not exists `application_file`
 (
-    id           char(19) not null primary key comment '文件记录唯一标识',
-    student_id   char(19) not null comment '学生ID',
-    application_id   char(19) not null comment '申请ID',
+    id           bigint not null primary key comment '文件记录唯一标识',
+    student_id   bigint not null comment '学生ID',
+    application_id   bigint not null comment '申请ID',
     file_path    varchar(500) not null comment '文件存储路径',
     create_time  datetime not null default current_timestamp comment '创建时间',
     update_time  datetime not null default current_timestamp on update current_timestamp comment '更新时间',
@@ -148,8 +149,8 @@ create table if not exists `application_file`
 
 create table if not exists `log`
 (
-    id                char(19) not null primary key comment '日志记录唯一标识',
-    user_id           char(19) not null comment '操作用户ID',
+    id                bigint not null primary key comment '日志记录唯一标识',
+    user_id           bigint not null comment '操作用户ID',
     operation_content text not null comment '操作内容',
     operation_time    datetime not null default current_timestamp comment '操作时间',
 

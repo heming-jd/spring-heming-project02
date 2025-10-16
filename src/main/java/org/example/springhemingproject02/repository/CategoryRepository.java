@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends ListCrudRepository<Category, String> {
-    List<Category> findBycollegeId(String collegeId);
+    List<Category> findBycollegeId(Long collegeId);
+
+    void deleteById(Long id);
 }

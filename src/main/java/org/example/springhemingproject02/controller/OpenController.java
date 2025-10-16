@@ -1,5 +1,7 @@
 package org.example.springhemingproject02.controller;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +41,7 @@ public class OpenController {
         response.addHeader("role", u.getRole());
         return ResultVO.success(u);
     }
-    @PostMapping("student/register")
+    @PostMapping("register/student")
     public ResultVO postRegisterstudent(@RequestBody StudentRegister studentRegister) {
         User user = studentRegister.getUser();
         user.setPassword(encoder.encode(user.getPassword()));
@@ -50,17 +52,26 @@ public class OpenController {
         scoreService.addStudentScore(studentScore);
         return ResultVO.ok();
     }
-    @PostMapping("teacher/register")
+    @PostMapping("register/teacher")
     public ResultVO postRegisterteacher(@RequestBody User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setRole(User.ROLE_Teacher);
         userService.addUser(user);
         return ResultVO.ok();
     }
+    @GetMapping("user")
+    public ResultVO getUser(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        DecodedJWT decode = jwtComponent.decode(token);
+        Long uid = decode.getClaim("uid").asLong();
+        User user = userService.getUserbyId(uid);
+        return ResultVO.success(user);
+    }
     @GetMapping("colleges")
-    public ResultVO getAllcolleges() {return ResultVO.success(collegeService.getAllcollege());}
+    public ResultVO getAllcolleges() {return collegeService.getAllcollege();}
     @GetMapping("categories/{collegeId}")
-    public ResultVO getCategories(@PathVariable String collegeId) {return collegeService.getCategories(collegeId);}
+    public ResultVO getCategories(@PathVariable Long collegeId) {
+        return collegeService.getCategories(collegeId);}
     @GetMapping("majors/{categoryId}")
-    public ResultVO getmajors(@PathVariable String categoryId) {return collegeService.getmajors(categoryId);}
+    public ResultVO getmajors(@PathVariable Long categoryId) {return collegeService.getmajors(categoryId);}
 }

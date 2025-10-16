@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,9 +18,9 @@ import java.time.LocalDateTime;
 public class ApplicationFile {
     @Id
     @CreatedBy
-    private String id;
-    private String studentId;
-    private String applicationId;
+    private Long id;
+    private Long studentId;
+    private Long applicationId;
     private String filePath;
     @ReadOnlyProperty
     private LocalDateTime createTime;

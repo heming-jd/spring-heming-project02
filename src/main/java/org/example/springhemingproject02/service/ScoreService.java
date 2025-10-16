@@ -28,13 +28,13 @@ public class ScoreService {
         return ResultVO.ok();
     }
 
-    public ResultVO getscore(String uid) {
+    public ResultVO getscore(Long uid) {
         return ResultVO.builder()
                 .code(200)
                 .data(studentScoreRepository.findBystudentId(uid))
                 .build();
     }
-    public BigDecimal calculateStudentScore(String studentId, String categoryId) {
+    public BigDecimal calculateStudentScore(Long studentId, Long categoryId) {
         // 1. 获取学生在大类下的已审核通过申请
         List<Application> applications = applicationRepository.findByStudentIdAndCategory(studentId, categoryId);
         if (applications.isEmpty()) {
@@ -52,7 +52,7 @@ public class ScoreService {
      * 批量获取申请分数
      */
     private Map<String, BigDecimal> getApplicationScores(List<Application> applications) {
-        List<String> applicationIds = applications.stream()
+        List<Long> applicationIds = applications.stream()
                 .map(Application::getId)
                 .collect(Collectors.toList());
 
@@ -72,14 +72,14 @@ public class ScoreService {
     /**
      * 考虑限分计算最终得分
      */
-    private BigDecimal calculateScoreWithLimits(String studentId,
+    private BigDecimal calculateScoreWithLimits(Long studentId,
                                                 List<Application> applications,
                                                 Map<String, BigDecimal> applicationScores) {
         BigDecimal totalScore = BigDecimal.ZERO;
         Map<String, BigDecimal> nodeUsedScores = new HashMap<>();
 
         for (Application application : applications) {
-            String leafNodeId = application.getLeafNodeId();
+            Long leafNodeId = application.getLeafNodeId();
             BigDecimal originalScore = applicationScores.get(application.getId());
 
             if (originalScore == null) {
@@ -116,9 +116,9 @@ public class ScoreService {
     /**
      * 计算学生在指定节点（包括所有后代节点）下的总分数
      */
-    public BigDecimal calculateNodeTotalScore(String studentId, String nodeId) {
+    public BigDecimal calculateNodeTotalScore(Long studentId, Long nodeId) {
         // 获取该节点的所有后代节点ID
-        List<String> descendantNodeIds = nodeClosureRepository.findDescendantIdsByAncestorId(nodeId);
+        List<Long> descendantNodeIds = nodeClosureRepository.findDescendantIdsByAncestorId(nodeId);
         descendantNodeIds.add(nodeId); // 包括自身
 
         // 查询学生在这些节点下的所有申请

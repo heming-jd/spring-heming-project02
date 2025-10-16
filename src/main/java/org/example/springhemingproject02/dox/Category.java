@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +17,8 @@ import java.math.BigDecimal;
 public class Category {
     @Id
     @CreatedBy
-    private String id;
+    private Long id;
     private String categoryName;
-    private String collegeId;
+    private Long collegeId;
     private BigDecimal scorePercentage;
 }

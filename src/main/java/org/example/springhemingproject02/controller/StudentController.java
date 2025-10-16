@@ -33,31 +33,31 @@ public class StudentController {
     public ResultVO getscore(HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         return scoreService.getscore(uid);
     }
-    @GetMapping("firstnodes")
-    public ResultVO getfirstNodes() {
-        return nodeService.getfirstNodes();
+    @GetMapping("firstnodes/{categoryId}")
+    public ResultVO getfirstNodes(@PathVariable Long categoryId) {
+        return nodeService.getfirstNodes(categoryId);
     }
     @GetMapping("nodes/{id}")
-    public ResultVO getNodes(@PathVariable String id) {
+    public ResultVO getNodes(@PathVariable Long id) {
         return nodeService.getNodes(id);
     }
     @PostMapping("application")
     public ResultVO addapplication(@RequestBody Application application, HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         application.setStudentId(uid);
         application.setStatus(Application.STATUS_COMMIT);
         return applicationService.addApplication(application);
     }
     @DeleteMapping("application/{id}")
-    public ResultVO deleteApplication(@PathVariable String id, HttpServletRequest request) {
+    public ResultVO deleteApplication(@PathVariable Long id, HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
 
         // 先查询记录，验证当前用户是否有权限删除
         Application application = applicationService.getApplicationById(id);
@@ -70,7 +70,7 @@ public class StudentController {
     public ResultVO updateApplication(@RequestBody Application application, HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         // 验证权限：只能更新自己的申请
         Application existingApp = applicationService.getApplicationById(application.getId());
         if (existingApp == null || !existingApp.getStudentId().equals(uid)) {
@@ -86,7 +86,7 @@ public class StudentController {
         return applicationService.getallapplication();
     }
     @GetMapping("applications/{id}")
-    public ResultVO getapplication(@PathVariable String id) {
+    public ResultVO getapplication(@PathVariable Long id) {
         return applicationService.getapplication(id);
     }
 
@@ -95,16 +95,16 @@ public class StudentController {
     public ResultVO addaddapplicationfiles(@RequestBody ApplicationFile applicationFile, HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         applicationFile.setStudentId(uid);
         return applicationService.addApplicationFile(applicationFile);
     }
 
     @DeleteMapping("applicationfiles/{id}")
-    public ResultVO deleteApplicationFile(@PathVariable String id, HttpServletRequest request) {
+    public ResultVO deleteApplicationFile(@PathVariable Long id, HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
 
         //验证权限
         ApplicationFile file = applicationService.getApplicationFileById(id);
@@ -118,7 +118,7 @@ public class StudentController {
     public ResultVO updateApplicationFile(@RequestBody ApplicationFile applicationFile, HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         // 验证权限：只能更新自己的文件
         ApplicationFile existingFile = applicationService.getApplicationFileById(applicationFile.getId());
         if (existingFile == null || !existingFile.getStudentId().equals(uid)) {
@@ -129,7 +129,7 @@ public class StudentController {
         return applicationService.updateApplicationFile(applicationFile);
     }
     @GetMapping("applicationfiles/{applicationId}")
-    public ResultVO getapplicationfiles(@PathVariable String applicationId) {
+    public ResultVO getapplicationfiles(@PathVariable Long applicationId) {
         return applicationService.getapplicationfilesbyapplicationId(applicationId);
 
     }
@@ -137,7 +137,7 @@ public class StudentController {
     public ResultVO gettotalscore(HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         User user = userService.getUserbyId(uid);
         return ResultVO.builder()
                 .code(200)

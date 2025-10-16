@@ -1,4 +1,5 @@
 
+
 ###管理员登录
 POST http://localhost:8080/api/open/login
 Content-Type: application/json
@@ -21,6 +22,7 @@ Content-Type: application/json
 > {% client.global.set("token", response.headers.valueOf("token")); %}
 
 
+
 ###学生注册
 POST http://localhost:8080/api/open/student/register
 Content-Type: application/json
@@ -33,9 +35,9 @@ Content-Type: application/json
     "phone": "18045088469",
     "email": "18045088469@163.com",
     "studentNumber": "2023211486",
-    "collegeId": "1421360334259912704",
-    "majorId": "major_002",
-    "categoryId": "category_001"
+    "collegeId": 1421360334259912704,
+    "majorId": 1234,
+    "categoryId": 13443
   },
   "studentScore": {
     "majorRank": 1,
@@ -53,8 +55,8 @@ Content-Type: application/json
   "name": "杨肃",
   "phone": "18745088469",
   "email": "18745088469@163.com",
-  "TeacherNumber": "2022211486",
-  "collegeId": "college_001"
+  "teacherNumber": "2022211486",
+  "collegeId":1426231915943591936
 }
 
 
@@ -78,14 +80,17 @@ Content-Type: application/json
   "password": "Yhm050227"
 }
 > {% client.global.set("token", response.headers.valueOf("token")); %}
+
 ###查找全部学院
 GET http://localhost:8080/api/open/colleges
 Content-Type: application/json
 
+
 ###查找学院对应大类
-GET http://localhost:8080/api/open/categories/1421292569574539264
+GET http://localhost:8080/api/open/categories/1426232357398282240
 Content-Type: application/json
 
+
 ###查找全部专业
-GET http://localhost:8080/api/open/majors/1421292569574539264
+GET http://localhost:8080/api/open/majors/1426232054179463168
 Content-Type: application/json

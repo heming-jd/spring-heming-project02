@@ -1,5 +1,7 @@
 
 
+
+
 ###添加新大类
 POST http://localhost:8080/api/admincollege/category
 Content-Type: application/json
@@ -7,10 +9,21 @@ token: {{token}}
 
 {
   "categoryName": "通信类",
-  "collegeId": "1421292569574539264",
+  "collegeId":1426232357398282240,
   "scorePercentage":"0.5"
 }
 
+
+###添加新专业
+POST http://localhost:8080/api/admincollege/major
+Content-Type: application/json
+token: {{token}}
+
+{
+  "majorName": "软件工程",
+  "collegeId":1426231915943591936,
+  "categoryId":1426232054179463168
+}
 
 
 
@@ -20,12 +33,13 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "categoryId": "1421292569574539264",
+  "categoryId": 1426231203754967040,
   "nodeName": "学术项目",
   "description": "1",
   "maxScore": "60.00",
   "limitCount": "2"
 }
+
 
 ###添加新节点2
 POST http://localhost:8080/api/admincollege/node
@@ -33,9 +47,9 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "categoryId": "1421292569574539264",
+  "categoryId": 1426231203754967040,
   "nodeName": "竞赛",
-  "parentId": "1423887924468154368",
+  "parentId": 1426402917155635200,
   "description": "2",
   "maxScore": "60.00",
   "limitCount": "2"
@@ -62,9 +76,9 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "categoryId": "1421292569574539264",
+  "categoryId": 1421292569574539264,
   "nodeName": "蓝桥杯",
-  "parentId": "1423888001588822016",
+  "parentId": 1423888001588822016,
   "description": "2",
   "maxScore": "60.00",
   "limitCount": "2"

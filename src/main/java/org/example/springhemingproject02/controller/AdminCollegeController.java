@@ -2,7 +2,6 @@ package org.example.springhemingproject02.controller;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.springhemingproject02.component.JWTComponent;
 import org.example.springhemingproject02.dox.*;
@@ -11,7 +10,6 @@ import org.example.springhemingproject02.service.CollegeService;
 import org.example.springhemingproject02.service.NodeService;
 import org.example.springhemingproject02.service.Userservice;
 import org.example.springhemingproject02.vo.ResultVO;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -30,10 +28,10 @@ public class AdminCollegeController {
     public ResultVO getCategories(HttpServletRequest request) {
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         User user = userService.getUserbyId(uid);
-        String collegeId = user.getCollegeId();
-        return ResultVO.success(collegeService.getCategories(collegeId));
+        Long collegeId = user.getCollegeId();
+        return collegeService.getCategories(collegeId);
     }
     @PostMapping("category")
     public ResultVO addCategory(@RequestBody Category category) {
@@ -48,7 +46,7 @@ public class AdminCollegeController {
         return collegeService.deletecategory(id);
     }
     @GetMapping("majors/{categoryId}")
-    public ResultVO getmajors(@PathVariable String categoryId) {return collegeService.getmajors(categoryId);}
+    public ResultVO getmajors(@PathVariable Long categoryId) {return collegeService.getmajors(categoryId);}
     @PostMapping("major")
     public ResultVO addmajor(@RequestBody Major major) {
         return collegeService.addmajor(major);
@@ -58,20 +56,24 @@ public class AdminCollegeController {
         return collegeService.updatemajor(major);
     }
     @DeleteMapping("major")
-    public ResultVO deletemajor(@PathVariable String id) {
+    public ResultVO deletemajor(@PathVariable Long id) {
         return collegeService.deletemajor(id);
     }
     @PostMapping("node")
     public ResultVO addNode(@RequestBody Node node) {
         return nodeService.addNode(node);
     }
+    @GetMapping("nodes/{categoryId}")
+    public ResultVO getfirstNodes(@PathVariable Long categoryId) {
+        return nodeService.getfirstNodes(categoryId);
+    }
     @GetMapping("nodes/{id}")
-    public ResultVO getNodes(@PathVariable String id) {
+    public ResultVO getNodes(@PathVariable Long id) {
         return nodeService.getNodes(id);
     }
     @DeleteMapping("node/{id}")
-    public ResultVO deleteNode(@PathVariable String id) {
-        Optional<Node> Id = nodeService.findById(id);
+    public ResultVO deleteNode(@PathVariable Long id) {
+        Optional<Node> Id = Optional.ofNullable(nodeService.findById(id));
         if (Id.isPresent()) {
             nodeService.deleteNode(id);
             return ResultVO.ok();
@@ -84,17 +86,17 @@ public class AdminCollegeController {
     public ResultVO getStudentsByTeacher(HttpServletRequest request){
         String token = request.getHeader("token");
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         User user = userService.getUserbyId(uid);
-        String collegeId = user.getCollegeId();
-        return ResultVO.success(userService.getStudentsByTeacher(collegeId));
+        Long collegeId = user.getCollegeId();
+        return userService.getStudentsByTeacher(collegeId);
     }
     @GetMapping("students/{categoryId}")
-    public ResultVO getstudentsbycategory(@PathVariable String categoryId){
+    public ResultVO getstudentsbycategory(@PathVariable Long categoryId){
         return userService.getStudentsBycategory(categoryId);
     }
     @GetMapping("files/{applicationId}")
-    public ResultVO getfilebyapplicationid(@PathVariable String applicationId){
+    public ResultVO getfilebyapplicationid(@PathVariable Long applicationId){
         return applicationService.getfilebyapplicationid(applicationId);
     }
     @PostMapping("review")
@@ -106,15 +108,15 @@ public class AdminCollegeController {
         return applicationService.updateReview(review);
     }
     @GetMapping("review/{applicationId}")
-    public ResultVO getReviewByApplicationId(@PathVariable String applicationId){
+    public ResultVO getReviewByApplicationId(@PathVariable Long applicationId){
         return applicationService.getReviewByApplicationId(applicationId);
     }
     @DeleteMapping("review/{applicationId}")
-    public ResultVO deleteReviewByApplicationId(@PathVariable String applicationId){
+    public ResultVO deleteReviewByApplicationId(@PathVariable Long applicationId){
         return applicationService.deleteReviewByApplicationId(applicationId);
     }
     @GetMapping("applications/{studentId}")
-    public ResultVO getapplicationsbystudentId(@PathVariable String id){
+    public ResultVO getapplicationsbystudentId(@PathVariable Long id){
         return applicationService.getapplicationsbystudentId(id);
     }
 }

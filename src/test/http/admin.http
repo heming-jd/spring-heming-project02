@@ -6,8 +6,8 @@ Content-Type: application/json
 
 ###添加学院
 POST http://localhost:8080/api/admin/college
-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoieXhwNHIiLCJ1aWQiOiIxNDIxMjkyMTI1Mjc2MTEwODQ4IiwiaWF0IjoxNzU4OTM1MDExLCJleHAiOjE3NTkwMjE0MTF9.LBGtZosLAdJsRULVQyizcpcISjKQ_9E2fsErXCM2Az8
 Content-Type: application/json
+token: {{token}}
 
 {
 "collegeName": "林学院"

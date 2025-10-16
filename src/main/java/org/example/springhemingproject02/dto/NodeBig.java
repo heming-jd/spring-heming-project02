@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NodeBig {
-    private String id;
-    private String categoryId;
+    private Long id;
+    private Long categoryId;
     private String nodeName;
-    private String parentId;
+    private Long parentId;
     private String description;
     private BigDecimal maxScore;
     private Integer limitCount;

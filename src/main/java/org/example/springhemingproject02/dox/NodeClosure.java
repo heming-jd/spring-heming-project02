@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +18,8 @@ import java.time.LocalDateTime;
 public class NodeClosure {
     @Id
     @CreatedBy
-    private String ancestorId;
-    private String descendantId;
+    private Long ancestorId;
+    private Long descendantId;
     private Integer level;
     @ReadOnlyProperty
     private LocalDateTime createTime;

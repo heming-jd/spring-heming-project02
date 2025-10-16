@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,9 +21,9 @@ public class Review {
     public static final String STATUS_SUCCESS = "sfdf";
     @Id
     @CreatedBy
-    private String id;
-    private String applicationId;
-    private String teacherId;
+    private Long id;
+    private Long applicationId;
+    private Long teacherId;
     private BigDecimal score;
     private String status;
     private String rejectReason;

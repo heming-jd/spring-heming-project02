@@ -11,10 +11,14 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends ListCrudRepository<Review, String> {
-    Review findByApplicationId(String applicationId);
+    Review findByApplicationId(Long applicationId);
 
-    void deleteByApplicationId(String applicationId);
+    void deleteByApplicationId(Long applicationId);
 
     @Query("SELECT r.application_id, r.score FROM review r WHERE r.application_id IN (:applicationIds) AND r.status = 'sfdf'")
-    List<Object[]> findApprovedScoresByApplicationIds(@Param("applicationIds") List<String> applicationIds);
+    List<Object[]> findApprovedScoresByApplicationIds(@Param("applicationIds") List<Long> applicationIds);
+
+    Object findByApplicationId(String applicationId);
+
+    void deleteById(Long id);
 }

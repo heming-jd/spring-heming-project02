@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentScoreRepository extends ListCrudRepository<StudentScore, String> {
-    Object findBystudentId(String uid);
+    Object findBystudentId(Long uid);
 }

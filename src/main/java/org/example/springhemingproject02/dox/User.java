@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -23,20 +24,21 @@ public class User{
     public static final String ROLE_Teacher = "efd";
     @Id
     @CreatedBy
-    private String id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long id;
     private String account;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String name;
     private String phone;
     private String email;
-    private String collegeId;
+    private Long collegeId;
     @JsonIgnore
     private String role;
     private String studentNumber;
     private String teacherNumber;
-    private String categoryId;
-    private String majorId;
+    private Long categoryId;
+    private Long majorId;
     @ReadOnlyProperty
     private LocalDateTime createdTime;
     @ReadOnlyProperty

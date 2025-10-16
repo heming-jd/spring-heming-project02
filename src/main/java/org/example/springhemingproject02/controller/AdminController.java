@@ -27,7 +27,7 @@ public class AdminController {
         return  ResultVO.ok();
     }
     @DeleteMapping("college/{id}")
-    public ResultVO deletecollege(@PathVariable String id){
+    public ResultVO deletecollege(@PathVariable Long id){
         collegeService.deletecollege(id);
         return  ResultVO.ok();
     }
@@ -48,7 +48,7 @@ public class AdminController {
         return  ResultVO.ok();
     }
     @DeleteMapping("collegeadmin/{id}")
-    public ResultVO deletecollegeadmin(@PathVariable String id){
+    public ResultVO deletecollegeadmin(@PathVariable Long id){
         collegeService.deletecollegeadmin(id);
         return  ResultVO.ok();
     }

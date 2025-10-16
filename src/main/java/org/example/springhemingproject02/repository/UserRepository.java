@@ -18,7 +18,7 @@ public interface UserRepository extends ListCrudRepository<User, String> {
     User findByAccount(String account);
     @Transactional
     @Query(value = "select * from user where college_id = :collegeId and role = 'hOl7U' ")
-    List<User> findStudentByCollegeId(String collegeId);
+    List<User> findStudentByCollegeId(Long collegeId);
     @Transactional
     @Query(value = """
         SELECT 
@@ -33,7 +33,11 @@ public interface UserRepository extends ListCrudRepository<User, String> {
         JOIN student_score s ON u.id = s.student_id
         WHERE u.category_id = :categoryId
     """, rowMapperClass = StudentBigRowMapper.class)
-    List<StudentBig> findStudentByCategoryId(String categoryId);
+    List<StudentBig> findStudentByCategoryId(Long categoryId);
 
     List<User> findByRole(String roleCollegeAdmin);
+
+    void deleteById(Long id);
+
+    User findById(Long uid);
 }

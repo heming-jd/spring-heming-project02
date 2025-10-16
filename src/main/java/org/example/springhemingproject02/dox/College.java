@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,6 @@ import org.springframework.data.annotation.Id;
 public class College {
     @Id
     @CreatedBy
-    private String id;
+    private Long id;
     private String collegeName;
 }

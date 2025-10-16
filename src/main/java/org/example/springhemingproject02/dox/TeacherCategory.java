@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,9 +18,9 @@ import java.time.LocalDateTime;
 public class TeacherCategory {
     @Id
     @CreatedBy
-    private String id;
-    private String categoryId;
-    private String teacherId;
+    private Long id;
+    private Long categoryId;
+    private Long teacherId;
     @ReadOnlyProperty
     private LocalDateTime createTime;
 }

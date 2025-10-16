@@ -1,5 +1,6 @@
 package org.example.springhemingproject02.dox;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +18,8 @@ import java.time.LocalDateTime;
 public class Log {
     @Id
     @CreatedBy
-    private String id;
-    private String userId;
+    private Long id;
+    private Long userId;
     private String operationContent;
     @ReadOnlyProperty
     private LocalDateTime operationTime;

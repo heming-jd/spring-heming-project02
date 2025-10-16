@@ -14,26 +14,26 @@ public class StudentBigRowMapper implements RowMapper<StudentBig> {
     public StudentBig mapRow(ResultSet rs, int rowNum) throws SQLException {
         // 创建 User 对象
         User user = User.builder()
-                .id(rs.getString("u_id"))
+                .id(rs.getLong("u_id"))
                 .account(rs.getString("account"))
                 .password(rs.getString("password"))
                 .name(rs.getString("name"))
                 .phone(rs.getString("phone"))
                 .email(rs.getString("email"))
-                .collegeId(rs.getString("college_id"))
+                .collegeId(rs.getLong("college_id"))
                 .role(rs.getString("role"))
                 .studentNumber(rs.getString("student_number"))
                 .teacherNumber(rs.getString("teacher_number"))
-                .categoryId(rs.getString("category_id"))
-                .majorId(rs.getString("major_id"))
+                .categoryId(rs.getLong("category_id"))
+                .majorId(rs.getLong("major_id"))
                 .createdTime(rs.getObject("created_time", LocalDateTime.class))
                 .updatedTime(rs.getObject("updated_time", LocalDateTime.class))
                 .build();
 
         // 创建 StudentScore 对象
         StudentScore studentScore = StudentScore.builder()
-                .id(rs.getString("s_id"))
-                .studentId(rs.getString("student_id"))
+                .id(rs.getLong("s_id"))
+                .studentId(rs.getLong("student_id"))
                 .weightedScore(rs.getBigDecimal("weighted_score"))
                 .majorRank(rs.getInt("major_rank"))
                 .createTime(rs.getObject("create_time", LocalDateTime.class))

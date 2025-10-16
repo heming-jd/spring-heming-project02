@@ -22,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             throw XException.builder().code(Code.UNAUTHORIZED).build();
         }
         DecodedJWT decode = jwtComponent.decode(token);
-        String uid = decode.getClaim("uid").asString();
+        Long uid = decode.getClaim("uid").asLong();
         String role = decode.getClaim("role").asString();
         request.setAttribute("uid", uid);
         request.setAttribute("role", role);
